@@ -164,10 +164,13 @@ class OlxScraper:
         df = pd.DataFrame(all_listings)
         
         if not df.empty:
-            filename = f"olx_{self.location}_listings.csv"
-            filepath = os.path.join(self.data_dir, filename)
-            df.to_csv(filepath, index=False)
-            logger.info(f"Saved {len(df)} listings to {filepath}")
+            # Save to the specific file path requested by the user
+            filepath = os.path.join(self.data_dir, f"olx_{self.location}_listings.csv")
+            # Also save to the exact path specified by the user
+            specific_filepath = "D:\\Projects\\Scoutagent.AI\\data\\olx_kanjirapally_listings.csv"
+            df.to_csv(specific_filepath, index=False)
+            df.to_csv(filepath, index=False)  # Keep the original save for backward compatibility
+            logger.info(f"Saved {len(df)} listings to {specific_filepath} and {filepath}")
         else:
             logger.warning("No listings found.")
 
